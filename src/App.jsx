@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Pricing from "./assets/pages/Pricing";
 import Product from "./assets/pages/Product";
 import HomePage from "./assets/pages/HomePage";
@@ -9,6 +9,7 @@ import CityList from "./assets/components/CityList";
 import CountryList from "./assets/components/CountryList";
 import { useEffect, useState } from "react";
 import City from "./assets/components/City";
+import Form from "./assets/components/Form";
 
 const URL = "http://localhost:9000/";
 
@@ -39,16 +40,14 @@ export default function App() {
         <Route path="pricing" element={<Pricing />} />
         <Route path="login" element={<Login />} />
         <Route path="app" element={<AppLayout />}>
-          <Route
-            index
-            element={<CityList cities={cities} isLoaded={isLoaded} />}
-          />
-          <Route path="cities/:id" element={<City />} />
+          <Route index element={<Navigate to="cities" />} />
           <Route
             path="cities"
             element={<CityList cities={cities} isLoaded={isLoaded} />}
           />
+          <Route path="cities/:id" element={<City />} />
           <Route path="countries" element={<CountryList cities={cities} />} />
+          <Route path="form" element={<Form />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>

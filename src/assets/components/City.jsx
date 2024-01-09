@@ -21,18 +21,18 @@ function City() {
     notes: "My favorite city so far!",
   };
 
-  const { cityName, emoji, date, notes } = currentCity;
+  // const { cityName, emoji, date, notes } = currentCity;
 
   return (
     <div className={styles.city}>
       <div className={styles.row}>
         <h6>City name</h6>
         <h3>
-          <span>{emoji}</span> {cityName}
+          <span>{id}</span>
         </h3>
       </div>
 
-      <div className={styles.row}>
+      {/* <div className={styles.row}>
         <h6>You went to {cityName} on</h6>
         <p>{formatDate(date || null)}</p>
       </div>
@@ -57,7 +57,7 @@ function City() {
 
       <div>
         <ButtonBack />
-      </div>
+      </div> */}
     </div>
   );
 }
