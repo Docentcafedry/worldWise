@@ -4,7 +4,10 @@ import CityItem from "./CityItem";
 import Spinner from "./Spinner";
 import Message from "./Message";
 
-export default function CityList({ cities, isLoaded }) {
+import { useCity } from "../providers/CitiesProvider";
+
+export default function CityList() {
+  const { cities, isLoaded } = useCity();
   if (isLoaded) return <Spinner />;
 
   if (!cities.length)

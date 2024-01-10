@@ -1,5 +1,9 @@
 import styles from "./City.module.css";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
+import { useCity } from "../providers/CitiesProvider";
+import { useEffect } from "react";
+import Spinner from "./Spinner";
+import Button from "./Button";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -10,29 +14,23 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 function City() {
-  // TEMP DATA
+  const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id);
+  const { currentCity, fetchCity, isLoaded } = useCity();
+  const { cityName, emoji, date, notes } = currentCity;
 
-  const currentCity = {
-    cityName: "Lisbon",
-    emoji: "🇵🇹",
-    date: "2027-10-31T15:59:59.138Z",
-    notes: "My favorite city so far!",
-  };
+  useEffect(
+    function () {
+      fetchCity(id);
+    },
+    [id]
+  );
 
-  // const { cityName, emoji, date, notes } = currentCity;
+  if (isLoaded) return <Spinner />;
 
   return (
     <div className={styles.city}>
       <div className={styles.row}>
-        <h6>City name</h6>
-        <h3>
-          <span>{id}</span>
-        </h3>
-      </div>
-
-      {/* <div className={styles.row}>
         <h6>You went to {cityName} on</h6>
         <p>{formatDate(date || null)}</p>
       </div>
@@ -51,13 +49,21 @@ function City() {
           target="_blank"
           rel="noreferrer"
         >
-          Check out {cityName} on Wikipedia &rarr;
+          Check out {cityName} {emoji} on Wikipedia &rarr;
         </a>
       </div>
 
       <div>
-        <ButtonBack />
-      </div> */}
+        <Button
+          type="back"
+          clickHandler={(e) => {
+            e.preventDefault();
+            navigate(-1);
+          }}
+        >
+          &larr; Back
+        </Button>
+      </div>
     </div>
   );
 }
