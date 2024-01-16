@@ -69,6 +69,7 @@ function Form() {
     };
 
     postCity(cityObj);
+    navigate(-1);
   }
 
   // if (!lat && !lng) navigate("app");
@@ -105,15 +106,7 @@ function Form() {
 
       <div className={styles.buttons}>
         <Button type="primary">Add</Button>
-        <Button
-          type="back"
-          clickHandler={(e) => {
-            e.preventDefault();
-            navigate(-1);
-          }}
-        >
-          &larr; Back
-        </Button>
+        <Button type="back">&larr; Back</Button>
       </div>
     </form>
   );
